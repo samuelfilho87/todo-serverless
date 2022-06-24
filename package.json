@@ -1,0 +1,26 @@
+{
+  "name": "todo-serverless",
+  "version": "1.0.0",
+  "description": "Serverless aws-nodejs-typescript",
+  "main": "serverless.yml",
+  "license": "MIT",
+  "scripts": {
+    "@middy/core": "^2.5.3",
+    "@middy/http-json-body-parser": "^2.5.3",
+    "dev": "serverless offline",
+    "dynamodb:install": "serverless dynamodb install",
+    "dynamodb:start": "serverless dynamodb start",
+    "deploy": "serverless deploy --verbose"
+  },
+  "engines": {
+    "node": ">=14.15.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.100",
+    "@types/node": "^18.0.0",
+    "esbuild": "^0.14.45",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-esbuild": "^1.30.0",
+    "serverless-offline": "^8.8.0"
+  }
+}
