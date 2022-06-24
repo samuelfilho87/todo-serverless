@@ -15,10 +15,17 @@
   "engines": {
     "node": ">=14.15.0"
   },
+  "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
+    "handlebars": "^4.7.7",
+    "puppeteer": "^15.0.0",
+    "puppeteer-core": "^10.1.0"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.100",
     "@types/node": "^18.0.0",
-    "esbuild": "^0.14.45",
+    "esbuild": "^0.14.47",
+    "serverless": "^3.0.0",
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-esbuild": "^1.30.0",
     "serverless-offline": "^8.8.0"

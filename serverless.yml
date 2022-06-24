@@ -2,6 +2,11 @@ service: todo-serverless
 
 frameworkVersion: '3'
 
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+  - serverless-dynamodb-local
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -20,9 +25,14 @@ provider:
         - Effect: Allow
           Action: 'dynamodb:*'
           Resource: '*'
+        - Effect: Allow
+          Action: 's3:*'
+          Resource: '*'
 
 package:
-  individually: false
+  individually: true
+  include:
+    - './src/templates/**'
 
 functions:
   create-task:
@@ -56,26 +66,30 @@ functions:
           path: 'task/{id}'
           method: 'delete'
           cors: true
-
-plugins:
-  - serverless-offline
-  - serverless-esbuild
-  - serverless-dynamodb-local
+  
+  export-tasks-to-pdf:
+    handler: 'src/functions/exportTasksToPdf.handler'
+    events:
+      - http:
+          path: 'tasks/export/pdf'
+          method: 'get'
+          cors: true
 
 custom:
   esbuild:
     bundle: true
     minify: false
     sourcemap: true
+    external: 
+      - 'puppeteer'
     exclude: 
       - 'aws-sdk'
+      - 'node_modules'
     target: 'node14'
     define:
       'require.resolve': undefined
     platform: 'node'
     concurrency: 10
-    external: 
-      - 'chrome-aws-lambda'
   dynamodb:
     stages: 
       - dev
